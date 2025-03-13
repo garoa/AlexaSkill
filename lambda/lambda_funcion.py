@@ -48,8 +48,8 @@ class StatusIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
 
-        r = get('https://garoahc.appspot.com/status')
-        status = loads(r.text)['open']
+        r = get('https://garoa.net.br/status/spaceapi.json')
+        status = loads(r.text)['state']['open']
 
         if status:
             speak_output = "O Garoa Hacker Clube está aberto no momento."
@@ -72,7 +72,7 @@ class EnderecoIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "O endereço do Garoa Hacker Clube é Rua Costa Carvalho, cinco meia sete fundos, Pinheiros, São Paulo Capital."
+        speak_output = "O endereço do Garoa Hacker Clube é Rua Pascoal Bianco, 48, Pinheiros, São Paulo, Capital."
 
         return (
             handler_input.response_builder
