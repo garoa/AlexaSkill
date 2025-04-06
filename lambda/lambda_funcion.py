@@ -29,7 +29,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Bem vindo à skill do Garoa Hacker Clube. Aqui você poderá saber o estátus do Garoa ou obter o seu endereço. O que deseja?"
+        speak_output = "Bem vindo à skill do Garoa Hacker Clube. Aqui você poderá saber o status do Garoa ou obter o seu endereço. O que deseja?"
 
         return (
             handler_input.response_builder
@@ -48,8 +48,10 @@ class StatusIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
 
-        r = get('https://garoa.net.br/status/spaceapi.json')
-        status = loads(r.text)['state']['open']
+        directory = get('https://directory.spaceapi.io').text
+        url = loads(directory)['Garoa Hacker Clube']
+        spaceapi = get(url).text
+        status = loads(spaceapi)['state']['open']
 
         if status:
             speak_output = "O Garoa Hacker Clube está aberto no momento."
@@ -90,7 +92,7 @@ class HelpIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Para saber se o Garoa Hacker Clube está aberto ou fechado, basta pedir o seu estátus, por exemplo, \"Alexa, qual o estátus atual do Garoa Hacker Clube?\", para obter o seu endereço, basta pedir, por exemplo, \"Alexa, pergunte ao Garoa Hacker Clube qual o seu endereço.\"."
+        speak_output = "Para saber se o Garoa Hacker Clube está aberto ou fechado, basta pedir o seu status, por exemplo, \"Alexa, qual o status atual do Garoa Hacker Clube?\", para obter o seu endereço, basta pedir, por exemplo, \"Alexa, pergunte ao Garoa Hacker Clube qual o seu endereço.\"."
 
         return (
             handler_input.response_builder
